@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "mhandels/docker-multi-container-test-client",
+            "hostname": "client", 
+            "essential": false
+        }, 
+        {
+            "name": "server",
+            "image": "mhandels/docker-multi-container-test-server",
+            "hostname": "api", 
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "mhandels/docker-multi-container-test-worker",
+            "hostname": "worker", 
+            "essential": false
+        },
+        {
+            "name": "nginx",
+            "image": "mhandels/docker-multi-container-test-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": ["client", "server"]
+        }
+    ]
+}
